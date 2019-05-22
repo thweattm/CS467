@@ -1,0 +1,7 @@
+__pycache__
+venv/
+config.py
+log.txt
+test_db.py
+test_emails.py
+text_emails2.py

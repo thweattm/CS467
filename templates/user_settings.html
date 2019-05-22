@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+	{% include "partials/navbar2.html" %} <!-- alternate navbar once logged in -->	
+	
+						
+	<!-- start banner Area -->				
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row pt-100 pb-20 d-flex align-items-center justify-content-center vertical-fill">
+			
+				{% with messages = get_flashed_messages(with_categories=True) %}
+					{% if messages %}
+					<div class="row d-flex align-items-center justify-content-center vertical-fill">
+						<div class="col-lg-5 col-md-6 no-bg">
+							{% for category, message in messages %}
+								<div class="alert {{ category }} text-center pt-20 pb-20">
+									{{ message }}
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+					{% endif %}
+				{% endwith %}
+			
+			
+				<div class="col-lg-5  col-md-6 header-right">
+					<h4 class="text-white pb-30 text-center">Update Your Information</h4>
+					<p class="pb-20 text-white text-center ">
+						Update any of your personal information below.
+					</p>
+					<form method="post" action="/update_info" class="form" role="form" autocomplete="on">	
+
+						<div class="form-group">
+							<input type="hidden" name="uid" value="{{ userInfo.id }}">
+							<input class="form-control txt-field" type="text" name="firstname" value="{{ userInfo.fname }}">
+							<input class="form-control txt-field" type="text" name="lastname" value="{{ userInfo.lname }}">
+							<input class="form-control txt-field" type="email" name="email" value="{{ userInfo.email }}">
+							
+							<div class="form-group row">
+								<div class="col-md-6 wrap-left">
+									<input class="form-control txt-field" type="text" name="city" value="{{ userInfo.city }}">
+								</div>
+									
+								<div class="col-md-6 wrap-right">
+									<div class="text-field default-select mb-20" id="default-select"">
+										<select name="state">
+											<option value="{{ userInfo.state }}" selected>{{ userInfo.state }}</option>
+											<option value="AL">AL</option>
+											<option value="AK">AK</option>
+											<option value="AZ">AZ</option>
+											<option value="AR">AR</option>
+											<option value="CA">CA</option>
+											<option value="CO">CO</option>
+											<option value="CT">CT</option>
+											<option value="DE">DE</option>
+											<option value="DC">DC</option>
+											<option value="FL">FL</option>
+											<option value="GA">GA</option>
+											<option value="HI">HI</option>
+											<option value="ID">ID</option>
+											<option value="IL">IL</option>
+											<option value="IN">IN</option>
+											<option value="IA">IA</option>
+											<option value="KS">KS</option>
+											<option value="KY">KY</option>
+											<option value="LA">LA</option>
+											<option value="ME">ME</option>
+											<option value="MD">MD</option>
+											<option value="MA">MA</option>
+											<option value="MI">MI</option>
+											<option value="MN">MN</option>
+											<option value="MS">MS</option>
+											<option value="MO">MO</option>
+											<option value="MT">MT</option>
+											<option value="NE">NE</option>
+											<option value="NV">NV</option>
+											<option value="NH">NH</option>
+											<option value="NJ">NJ</option>
+											<option value="NM">NM</option>
+											<option value="NY">NY</option>
+											<option value="NC">NC</option>
+											<option value="ND">ND</option>
+											<option value="OH">OH</option>
+											<option value="OK">OK</option>
+											<option value="OR">OR</option>
+											<option value="PA">PA</option>
+											<option value="RI">RI</option>
+											<option value="SC">SC</option>
+											<option value="SD">SD</option>
+											<option value="TN">TN</option>
+											<option value="TX">TX</option>
+											<option value="UT">UT</option>
+											<option value="VT">VT</option>
+											<option value="VA">VA</option>
+											<option value="WA">WA</option>
+											<option value="WV">WV</option>
+											<option value="WI">WI</option>
+											<option value="WY">WY</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-default btn-lg btn-block text-center text-uppercase">
+									Update Info
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>											
+			</div>
+			
+			<div class="row pt-20 pb-20 d-flex align-items-center justify-content-center vertical-fill">
+				<div class="col-lg-5 col-md-6 header-right">
+					<h4 class="text-white pb-30 text-center">Export Your Data</h4>
+					<p class="pb-20 text-white text-center ">
+						Export your data as a CSV file either to your email, or download directly 
+						from the browser. You can choose from either your activity or health history below.
+					</p>
+					<form method="post" action="/export_history" class="form" role="form" autocomplete="on">	
+						<div class="text-field default-select mb-20" id="default-select">
+							
+							<input type="hidden" name="uid" value="{{ userInfo.id }}">
+							
+							<select name="data_type" required>
+								<option value="" disabled selected hidden>Data Type</option>
+								<option value="activity">Activity History</option>
+								<option value="health">Health History</option>
+							</select>
+						</div>
+						
+						<div class="text-field default-select mb-20" id="default-select">
+							<select name="length" required>
+								<option value="" disabled selected hidden>Length of Data</option>
+								<option value="all">All History</option>
+								<option value="day">Day</option>
+								<option value="week">Week</option>
+								<option value="month">Month</option>
+							</select>
+						</div>
+						
+						<div class="text-field default-select mb-20" id="default-select">
+							<select name="method" required>
+								<option value="" disabled selected hidden>Delivery Method</option>
+								<option value="download">Download</option>
+								<option value="email">Email</option>
+							</select>
+						</div>
+						
+						<div class="form-group row">
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-default btn-lg btn-block text-center text-uppercase">
+									Export Data
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>											
+			</div>
+			
+			<div class="row pt-20 pb-100 d-flex align-items-center justify-content-center vertical-fill">
+				<div class="col-lg-5 col-md-6 header-right">
+					<h4 class="text-white pb-30 text-center">Sign Up For Email Summaries</h4>
+					<p class="pb-20 text-white text-center ">
+						Sign up for emails which will give you summaries of your data in easy 
+						to read charts. Charts include: Various activities distance vs goals, weight, and BMI history. 
+						Select your frequency and length of history below to receive your emails.
+					</p>
+					<form method="post" action="/subscribe" class="form" role="form" autocomplete="on">	
+						<input type="hidden" name="uid" value="{{ userInfo.id }}">
+						
+						<div class="text-field default-select mb-20" id="default-select">	
+							<select name="schedule" required>
+								<option value="" disabled selected hidden>Select Frequency</option>
+								<option value="day">Daily</option>
+								<option value="week">Weekly</option>
+								<option value="month">Monthly</option>
+							</select>
+						</div>
+						
+						<div class="text-field default-select mb-20" id="default-select">	
+							<select name="length" required>
+								<option value="" disabled selected hidden>Select History Length</option>
+								<option value="1">Last 1 Day</option>
+								<option value="7">Last 7 Days</option>
+								<option value="30">Last 30 Days</option>
+							</select>
+						</div>
+						
+						<div class="form-group row mb-20">
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-default btn-lg btn-block text-center text-uppercase">
+									Subscribe
+								</button>
+							</div>
+						</div>
+					</form>
+					
+					<form method="post" action="/unsubscribe" class="form" role="form">
+						<div class="form-group row">
+							<div class="col-md-12">
+								<input type="hidden" name="uid" value="{{ userInfo.id }}">
+								<button type="submit" class="btn btn-default btn-lg btn-block text-center text-uppercase">
+									Unsubscribe
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>											
+			</div>
+			
+		</div>					
+	</section>
+	<!-- End banner Area -->	
+
+
+{% endblock %}

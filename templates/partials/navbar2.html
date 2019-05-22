@@ -1,0 +1,21 @@
+<header id="header" id="home">
+	<div class="container">
+	<div class="row align-items-center justify-content-between d-flex">
+		  <div id="logo">
+			<a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/headerLogo.png') }}" alt="" title="" /></a>
+		</div>
+		<nav id="nav-menu-container">
+			<ul class="nav-menu">
+			  <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+			  <li><a href="">option1</a></li>
+			  <li><a href="">option2</a></li>
+			  <li><a href="">option3</a></li>
+			  <li class="menu-active"><a href="{{ url_for('user_settings') }}">User Settings</a></li>	
+			  {% if userInfo.user_name %}
+				<li><a href="{{ url_for('user_settings') }}">{{ userInfo.user_name }}</a></li>
+			  {% endif %}
+			</ul>
+		</nav><!-- #nav-menu-container -->   		
+	</div>
+	</div>
+  </header><!-- #header -->
