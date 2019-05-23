@@ -60,6 +60,9 @@ def valid_login(username, password):
 	
 	user_record = db.query(query, user_name=username).first()
 	
+	if not user_record:
+		return 0 #user not found
+	
 	if user_record.user_role == 'user':
 		#check password
 		if bcrypt.check_password_hash(user_record.pswd, password):
@@ -68,7 +71,7 @@ def valid_login(username, password):
 			return 0 #invalid password
 		
 	else:
-		#user doesn't exist or is not defined as 'user'
+		#user is not defined as 'user'
 		return 0
 
 
