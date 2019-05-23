@@ -125,19 +125,48 @@ def registration_complete(request):
 	else:
 		#Insert main user data into 'user_data' table
 		query = """INSERT INTO user_data (user_name, fname, lname, email, pswd,
-			 user_role, city, state) VALUES
+			 user_role) VALUES
 			 (:username, :fname, :lname, :email, :pwhash,
-			 :user_role, :city, :state)"""
+			 :user_role)"""
 
+			
 		db.query(query, username=request.form['username'],
 			fname=request.form['firstName'], 
 			lname=request.form['lastName'],
 			email=request.form['email'],
-			user_role='user',
-			city=request.form['city'], 
-			state=request.form['state'],
-			pwhash=pw_hash)
+			pwhash=pw_hash,
+			user_role='user')
 
+		#Enter optional data into the 'user_data' table if provided
+		if request.form['city'] or not request.form['state'] == 'None':
+			#city
+			if request.form['city']:
+				city = request.form['city']
+			else:
+				city = ""
+			#state
+			if request.form['state'] and not request.form['state'] == 'None':
+				state = request.form['state']
+			else:
+				state = ""
+				
+			#Get users db id
+			query = """SELECT id
+				FROM user_data
+				WHERE user_name = :username"""
+
+			user_id = db.query(query, username=request.form['username']).first().id
+		
+			#Insert health data
+			query =  """UPDATE user_data
+				SET city=:user_city, state=:user_state
+				WHERE id=:uid"""
+				
+			db.query(query, 
+				user_city=city,
+				user_state=state, 
+				uid=user_id)
+				
 
 		#Enter health data into the 'health' table if provided
 		if request.form['heightFeet'] or request.form['heightIn'] or request.form['weight']:
