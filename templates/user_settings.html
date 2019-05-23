@@ -6,22 +6,27 @@
 	
 						
 	<!-- start banner Area -->				
-	<section class="banner-area relative" id="home">
+	<section class="banner-area relative no-bg" id="home">
 		<div class="overlay overlay-bg"></div>
 		<div class="container">
-			<div class="row pt-100 pb-20 d-flex align-items-center justify-content-center vertical-fill">
+			
 			
 				{% with messages = get_flashed_messages(with_categories=True) %}
 					{% if messages %}
-					<div class="row d-flex align-items-center justify-content-center vertical-fill">
-						<div class="col-lg-5 col-md-6 no-bg">
-							{% for category, message in messages %}
-								<div class="alert {{ category }} text-center pt-20 pb-20">
-									{{ message }}
-								</div>
-							{% endfor %}
+						<div class="row pt-100 d-flex align-items-center justify-content-center vertical-fill">
+							<div class="col-lg-5 col-md-6">
+								{% for category, message in messages %}
+									<div class="alert {{ category }} text-center">
+										{{ message }}
+									</div>
+								{% endfor %}
+							</div>
 						</div>
-					</div>
+						<!-- Create modified div with smaller top padding -->
+						<div class="row pt-10 pb-20 d-flex align-items-center justify-content-center vertical-fill">
+					{% else %}
+						<!-- Create normal div with proper top padding -->
+						<div class="row pt-100 pb-20 d-flex align-items-center justify-content-center vertical-fill">
 					{% endif %}
 				{% endwith %}
 			
@@ -178,9 +183,9 @@
 						<div class="text-field default-select mb-20" id="default-select">	
 							<select name="schedule" required>
 								<option value="" disabled selected hidden>Select Frequency</option>
-								<option value="day">Daily</option>
-								<option value="week">Weekly</option>
-								<option value="month">Monthly</option>
+								<option value="Daily">Daily</option>
+								<option value="Weekly">Weekly</option>
+								<option value="Monthly">Monthly</option>
 							</select>
 						</div>
 						
@@ -202,16 +207,40 @@
 						</div>
 					</form>
 					
-					<form method="post" action="/unsubscribe" class="form" role="form">
-						<div class="form-group row">
-							<div class="col-md-12">
-								<input type="hidden" name="uid" value="{{ userInfo.id }}">
-								<button type="submit" class="btn btn-default btn-lg btn-block text-center text-uppercase">
-									Unsubscribe
-								</button>
-							</div>
-						</div>
-					</form>
+						
+					<center>
+					{% if schedules %}
+						<p class="pt-20 text-white text-center">
+							Here are your current subscriptions
+						</p>
+						<table width="100%" class="text-white text-center mt-20">
+							<tr>
+								<td>Frequency</td>
+								<td>History Length (days)</td>
+							</tr>
+							{% for schedule in schedules %}
+								<tr>
+									<td>{{ schedule.schedule }}</td>
+									<td>{{ schedule.length }}</td>
+									<td>
+										<form method="post" action="/unsubscribe">
+											<input type="hidden" name="id" value="{{ schedule.id }}">
+											<button type="submit" class="btn btn-lg text-center text-uppercase">
+												Unsubscribe
+											</button>
+										</form>
+									</td>
+								</tr>
+							{% endfor %}
+						</table>
+					{% else %}
+						<p class="pt-20 text-white text-center">
+							You are not subscribed to any summaries
+						</p>
+					{% endif %}
+					</center>
+						
+					
 				</div>											
 			</div>
 			
