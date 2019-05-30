@@ -90,11 +90,11 @@ def log():
 #-----------------------------------------------------------------------
 #Function to send email blast for given userIDs (via 'rows' variable)
 #-----------------------------------------------------------------------
-def makeEmail(rows, db):
+def makeEmail(rows, db, schedule):
 	#Loop through all users
 	for r in rows:
 
-		#Empty object to pass chart URLs to email
+		#Create empty object to pass chart URLs to email
 		class images(object):
 			pass
 					
@@ -108,10 +108,6 @@ def makeEmail(rows, db):
 		
 		#Flag to send email or not
 		makeEmail = False
-		
-		#Email body intro
-		body_text = ('<html><body><h3>Hello %s,</h3><br>'
-					'<p>Here is your Exercise Tracker Summary.</p>' % (user_record.user_name))
 		
 		#Activity History - Bar Graphs
 		
@@ -320,6 +316,14 @@ def makeEmail(rows, db):
 
 		#Send Email
 		if makeEmail == True:
-			sendEmail(user_email,"Exercise Tracker Summary",body_text,None,images)
+		
+			#Email body intro
+			body_text = ('<html><body><h3>Hello %s,</h3><br>'
+					'<p>Here is your %s Exercise Tracker Summary.</p>' % (user_record.user_name, schedule))
+			
+			#Subject line
+			subject_line = ('%s Exercise Tracker Summary' % (schedule))
+					
+			sendEmail(user_email,subject_line,body_text,None,images)
 			
 			

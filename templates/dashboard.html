@@ -1,19 +1,92 @@
-<!DOCTYPE html>
-<html>
-<body>
-place holder for user dashboard<br><br>
-<a href={{ url_for('index') }}>Back to Home</a>
-<br><br>
+{% extends "base_user.html" %}
 
-{% if username %}
-	{{ username }}
-{% endif %}
+{% block content %}
 
-<br><br>
-<a href={{ url_for('user_settings') }}>User Settings</a>
+	{% include "partials/navbar2.html" %} <!-- alternate navbar once logged in -->	
 
-<br><br>
-<a href="/logout">Logout</a>
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row fullscreen d-flex justify-content-center">
+				<div class="greeting">
+					<p style="font-size:30px" class="text-white text-uppercase">
+					Hello {{ name }}!
+					</p>
+				</div>
+				<div class="summary_boxes">
+				<div class="table_content">
+					<h3 class="text-white text-uppercase">
+						Health Summary
+					</h3>
+					<table class="summaries" align="center">		
+		<tr>
+			{% if health == "None" %}
+			<td>no health info have been provided</td>
+			<td>Your BMI</td>
+			{% else %}
+			{% for bmi in health %}
+			<td>Your BMI:  {{ bmi }}</td>
+			{% endfor %}
+			{% endif %}
+		</tr>
+		 </table>
+			 </div>
+		 </div>
+		 <div class="summary_boxes">
+		<div class="table_content">
+		<h3 class="text-white text-uppercase">
+		Goal Summary
+		</h3>
+		<table class="summaries" align="center">
+		<tbody>
+			{% if goals == "None" %}
+			<tr>
+				<td>no goals have been entered</td>
+			</tr>
+			{% else %}
+			{% for goal in goals %}
+			<tr>
+				<td>{{ goal }}</td>
+			</tr>
+			{% endfor %}
+			{% endif %}
+		</tbody>
+		</table>
+			</div>
+			</div>
+		<div class="summary_boxes">
+		<div class="table_content">
+		<h3 class="text-white text-uppercase">
+		Recent Activities
+		</h3>
+		<table class="summaries" align="center">
+		<tbody>
+			{% if activities == "None" %}
+				
+				<tr><td colspan="3">no activities have been entered</td></tr>
+			{% else %}
+			<tr>
+				<th>Type</th>
+				<th>Distance</th>
+				<th>Duration</th>
+			</tr>			
+			{% for actv in activities %}
+			<tr>
+				<td>{{ actv.activity_type }}</td>
+				<td>{{ actv.distance }}</td>
+				<td>{{ actv.duration }}</td>
+			</tr>
+			{% endfor %}
+			{% endif %}	
+		</tbody>
+		</table>
+			</div>
+			</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
 
-</body>
-</html>
+
+{% endblock %}

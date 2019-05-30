@@ -93,8 +93,7 @@
     box-sizing: border-box;
     margin-top: 4px;
     opacity: 0;
-    overflow: scroll;
-	height: 200px;
+    overflow: hidden;
     padding: 0;
     pointer-events: none;
     position: absolute;
@@ -137,4 +136,3 @@
 
 .no-csspointerevents .nice-select.open .list {
   display: block; }
-

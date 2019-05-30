@@ -7,14 +7,11 @@
 		<nav id="nav-menu-container">
 			<ul class="nav-menu">
 			  <li><a href="{{ url_for('dashboard') }}">Home</a></li>
-			  <li><a href="">option1</a></li>
-			  <li><a href="">option2</a></li>
-			  <li><a href="">option3</a></li>
+			  <li><a href="{{ url_for('activities') }}">Activities</a></li>
+			  <li><a href="{{ url_for('health') }}">Health</a></li>
+			  <li><a href="{{ url_for('goals') }}">Goals</a></li>
 			  <li><a href="{{ url_for('user_settings') }}">User Settings</a></li>	
 			  <li><a href="/logout">LOGOUT</a></li>	
-			  {% if userInfo.user_name %}
-				<li><a href="{{ url_for('user_settings') }}">{{ userInfo.user_name }}</a></li>
-			  {% endif %}
 			</ul>
 		</nav><!-- #nav-menu-container -->   		
 	</div>

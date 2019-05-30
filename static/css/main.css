@@ -4,8 +4,10 @@
 /* Mobile Layout: 320px */
 /* Wide Mobile Layout: 480px */
 /* =================================== */
-/*  Basic Style 
+/*  Basic Style
 /* =================================== */
+
+
 ::-moz-selection {
   /* Code for Firefox */
   background-color: #fab700;
@@ -49,10 +51,6 @@
   font-weight: 300;
 }
 
-html {
-	height: 100%;
-}
-
 body {
   color: #777777;
   font-family: "Poppins", sans-serif;
@@ -60,12 +58,6 @@ body {
   font-weight: 300;
   line-height: 1.625em;
   position: relative;
-  height: 100%;
-}
-
-
-.vertical-fill {
-	height: 100%;
 }
 
 ol, ul {
@@ -172,14 +164,6 @@ h6, .h6 {
 
 td, th {
   border-radius: 0px;
-}
-
-.alert.is-error {
-	color: red;
-}
-
-.alert.success {
-	color: white;
 }
 
 /**
@@ -496,10 +480,6 @@ td, th {
   padding-top: 170px;
 }
 
-.pt-200 {
-  padding-top: 200px;
-}
-
 .pb-0 {
   padding-bottom: 0px;
 }
@@ -558,10 +538,6 @@ td, th {
 
 .pb-150 {
   padding-bottom: 150px;
-}
-
-.pb-200 {
-  padding-bottom: 200px;
 }
 
 .pr-30 {
@@ -755,6 +731,7 @@ td, th {
 
 .relative {
   position: relative;
+  margin-top: 1px;
 }
 
 .overflow-hidden {
@@ -805,10 +782,6 @@ td, th {
 .text-heading {
   margin-bottom: 30px;
   font-size: 24px;
-}
-
-b, sup, sub, u, del {
-  color: #fab700;
 }
 
 h1 {
@@ -2292,18 +2265,13 @@ body.mobile-nav-active #mobile-nav-toggle {
   bottom: 0;
 }
 
-
 .banner-area {
-  background: url(../img/header-bg2.jpg) center;
+  background: url(../img/cyclist.jpg) center;
   background-size: cover;
 }
 
-.banner-area.no-bg {
-	background: rgb(128,128,128);
-}
-
 .banner-area .overlay-bg {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 767px) {
@@ -2320,7 +2288,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-size: 48px;
   font-weight: 600;
   line-height: 1em;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .banner-content h1 span {
@@ -2358,7 +2326,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   letter-spacing: 2px;
 }
 
-
 @media (max-width: 1280px) {
   .banner-content br {
     display: none;
@@ -2377,9 +2344,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .header-right {
-  background-color: rgba(96, 96, 96, 0.4);
-  border: 0px solid #4b5263;
-  padding: 35px;
+  background-color: rgba(32, 46, 69, 0.4);
+  border: 1px solid #4b5263;
+  padding: 50px;
 }
 
 @media (max-width: 413px) {
@@ -2432,17 +2399,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .header-right .btn-lg {
   font-size: 14px;
-  color: #000;
-  background-color: #fab700;
-  width: 150px;
-  margin: auto;
-}
-
-.banner-area .btn-lg {
-  font-size: 14px;
   color: #fff;
   background-color: #fab700;
-  width: 150px;
 }
 
 @media (max-width: 480px) {
@@ -2720,19 +2678,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   background-color: #f9f9ff;
 }
 
-.single-blog{
-	margin-bottom:15px;
-}
-
-.single-blog .text{
-	background-color: rgba(205, 205, 205, 0.4);
-	padding-top: 25px;
-	min-height: 200px;
-	width: 100%;
-	padding: 10px;
-	color: rgb(64,64,64);
-}
-
 .single-blog .thumb {
   overflow: hidden;
 }
@@ -2743,7 +2688,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  padding-bottom: 0px;
 }
 
 .single-blog:hover img {
@@ -2751,7 +2695,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .single-blog:hover h4 {
-  /*color: #fab700;*/
+  color: #fab700;
 }
 
 .single-blog h4 {
@@ -2778,7 +2722,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 @media (max-width: 800px) {
   .single-blog {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
   }
 }
 

@@ -18,7 +18,7 @@ query = """SELECT user_id, schedule, length
 rows = db.query(query)
 	
 if not len(rows.as_dict()) == 0:
-	send_email.makeEmail(rows, db)
+	send_email.makeEmail(rows, db, "Daily")
 
 send_email.log()
 	
