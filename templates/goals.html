@@ -1,0 +1,77 @@
+{% extends "base_user.html" %}
+
+{% block content %}
+
+	{% include "partials/navbar2.html" %} <!-- alternate navbar once logged in -->	
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">
+						Goals Log
+					</h1>
+				</div>											
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->	
+
+	<!-- Start feature Area -->
+	<section class="feature-area section-gap" id="service">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="center-text">
+					<h1>Recently Added Goals</h1><br>
+							</div>
+			</div>
+			<table class="goal_table" align="center">
+				
+				<tbody>
+				{% if user_goals == "None" %}
+				<tr><td colspan="4"><i>no goals have been submitted</i></tr></td>
+				{% else %}
+				{% for goal in user_goals %}
+				<tr>
+					<td align="center">{{ goal.notes }}</td>
+					<td>
+					<form action="{{ url_for('delete_goal', gid=goal.id) }}" method="POST">
+						<input type="submit" value="Delete"></input>
+					</form>
+					<td>
+
+				</tr>
+				{% endfor %}
+				{% endif %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<!-- End feature Area -->				
+
+	<!-- Start fact Area -->
+	<section class="facts-area section-gap" id="facts-area">
+		<div align="center" class="container">
+			<form action="{{ url_for('goals') }}" method="POST">
+				<h2>Add a Goal</h2>
+				<table>
+				<tbody>
+					<tr><td>Description</td> <td><input type="text" name="newNote" value="{{request.form.newNote}}"></td></tr>
+					<tr><td>Type</td> <td><select name="newType" value="{{request.form.newType}}">
+							<option value="Running">Running</option>
+							<option value="Swimming">Swimming</option>
+							<option value="Biking">Biking</option>
+						</select></td></tr>
+					<tr><td>Distance</td> <td><input type="number" name="newDist" value="{{request.form.newDist}}"/></td></tr>
+					<tr><td>Duration</td> <td><input type="text" name="newDur" value="{{request.form.newDur}}"/></td></tr>
+					<tr><td></td><td align="right"><input type="submit" value="Submit"></td></tr>
+				</tbody>
+				</table>
+			</form>
+		</div>	
+	</section>
+	<!-- end fact Area -->							
+
+{% endblock %}

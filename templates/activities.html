@@ -1,0 +1,102 @@
+{% extends "base_user.html" %}
+
+{% block content %}
+
+	{% include "partials/navbar2.html" %} <!-- alternate navbar once logged in -->	
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">
+						Activities Log
+					</h1>
+				</div>											
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->	
+
+	<!-- Start feature Area -->
+	<section class="feature-area section-gap" id="service">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="center-text">
+					<h1>Recent Activities</h1>
+			</div>
+			</div>
+
+								<table align="center" class="log_display" action="{{ url_for('activities') }}">
+										<thead style="text-align: center" class="table_header">
+										<tr>
+												<th>Type</th>
+												<th>Distance</th>
+												<th>Time</th>
+												<th>For Goal</th>
+												<th></th>
+										</tr>
+										</thead>
+
+										<tbody>
+				{% if user_activities == "None" %}
+					<td colspan="4"><i>no activities have been entered</i></td>
+					<td></td>
+				
+				{% else %}
+										{% for activity in user_activities %}
+										<tr>
+												<td style="min-width: 70px">{{ activity.activity_type }}</td>
+												<td style="min-width: 70px" align="center">{{ activity.distance }}</td>
+												<td style="min-width: 100px; text-align:center">{{ activity.duration }}</td>
+												<td style="min-width: 200px">{{ activity.notes }}</td>
+												
+					<td>
+					
+											<form action="{{ url_for('delete_activity', aid=activity.id) }}" method="POST">
+													<input type="submit" value="Delete"></input>
+					</form>
+					</td>
+				</tr>
+				{% endfor %}
+				{% endif %}
+				</tbody>
+				</form>
+			</table>
+		</div>	
+	</section>
+	<!-- End feature Area -->				
+
+	<!-- Start fact Area -->
+	<section class="facts-area section-gap" id="facts-area">
+		<div align="center" class="container">
+			<form action="{{ url_for('activities') }}" method="POST">
+				<h2>Add Activity</h2>
+				<table>
+				<tbody><tr>
+				<td>Type</td> <td><select name="newType" value="{{request.form.newType}}">
+					<option>Running</option>
+					<option>Swimming</option>
+					<option>Biking</option>
+				</select></td>
+				</tr>
+				<tr><td>Distance</td>
+				<td><input type="number" name="newDist" value="{{request.form.newDist}}"/></td></tr>
+				<tr><td>Duration</td>
+				<td><input type="text" name="newDur" value="{{request.form.newDur}}"/></td></tr>
+				<tr><td>For Goal</td> <td><select name="forGoal" value="{{request.form.forGoal}}">
+					{% for goal in user_goals %}
+					<option>{{ goal.notes }}</option>
+					{% endfor %}
+				</td></tr>
+				<tr><td></td><td align="right"><input type="submit" value="Submit"></input></td></tr>
+				</tbody>
+				</table>
+			</form>
+			<p align="right">*be sure that you have included a goal before adding activity</p>
+		</div>	
+	</section>
+
+
+{% endblock %}

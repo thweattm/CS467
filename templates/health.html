@@ -1,0 +1,81 @@
+{% extends "base_user.html" %}
+
+{% block content %}
+
+	{% include "partials/navbar2.html" %} <!-- alternate navbar once logged in -->	
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">
+						Health Log
+					</h1>
+				</div>											
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->	
+
+	<!-- Start feature Area -->
+	<section class="feature-area section-gap" id="service">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="center-text">
+					<h1>Current Health Info</h1>
+			</div>
+			</div>
+			<table align="center" class="log_display" action="{{ url_for('health') }}">
+				<thead class="table_header">
+				<tr>
+					<th>Height</th>
+					<th>Weight</th>
+					<th>BMI</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				{% if health == "None" %}
+					<td colspan="3">no health info has been provided</td>
+				{% else %}
+				{% for data in health %}
+					<td>{{ data.height }} in</td>
+					<td>{{ data.weight }} lbs</td>
+					<td>{{ data.bmi }}</td>
+				{% endfor %}
+				{% endif %}
+				</tr>
+				
+							 <tr>
+							<td></td>
+							<td></td>
+					<td><a class="health_link" href="{{url_for('static', filename='img/BMI_chart.png')}}" target="_blank">BMI Chart</a></td>
+				</tr>
+				</tbody>
+			</table>
+			<!--Need to adjust so popups into small window-->
+
+		</div>
+	</section>
+	<!-- End feature Area -->				
+
+	<!-- Start fact Area -->
+	<section class="facts-area section-gap" id="facts-area">
+		<div align="center" class="container">
+			<form action="{{ url_for('health') }}" method="POST">
+			<h2>Update Health Info</h2>
+				<p>Height:
+				<input type="number" name="newHeight" value="{{request.form.newHeight}}"/>
+				</p>
+				<p>Weight:
+				<input type="number" name="newWeight" value="{{request.form.newWeight}}"/>
+				</p>
+				<input type="submit", value="Update"/>
+			</form>
+		</div>	
+	</section>
+	<!-- end fact Area -->						
+
+{% endblock %}
