@@ -216,7 +216,7 @@ def registration_complete(request):
 				userid=user_id,
 				height=totalHeight, 
 				weight=totalWeight,
-				bmi=calculated_bmi)
+				bmi="{0:.2f}".format(calculated_bmi))
 		
 		
 		return 1
@@ -235,19 +235,6 @@ def confirmRegistration(request):
 	
 	send_email.sendEmail(send_to, email_subject, email_body)
 
-
-
-#-----------------------------------------------------------------------
-#Dashboard placeholder
-#-----------------------------------------------------------------------
-#@app.route('/dashboard', methods=['GET','POST'])
-#def dashboard():
-	#if session['username']:
-		#username = session['username']
-		
-	#return render_template('dashboard.html', username=username)
-	
-	
 	
 	
 #-----------------------------------------------------------------------
@@ -586,7 +573,7 @@ def dashboard():
     #in user_health
 	health = []
 	for i in user_health:
-		health.append("{0:.2f}".format(i.bmi))
+		health.append(i.bmi)
 
     #if the query result was empty, using "None as an identifier in html to
     #tell user that they have not provided health info
