@@ -199,7 +199,7 @@ def registration_complete(request):
 				totalWeight = ""
 				
 			#bmi
-			calculated_bmi = (int(totalWeight) / (int(totalHeight) * int(totalHeight))) * 703
+			calculated_bmi = float(totalWeight) / (totalHeight * totalHeight) * 703
 			
 			#Get users db id
 			query = """SELECT id
@@ -330,7 +330,7 @@ def exportHistory():
 			return getCSV(request)
 			
 		except Exception as e:
-			flash(('An error occurred while requesting history:  ' + str(e)), 'is-error')
+			flash(('Error:  ' + str(e)), 'is-error')
 
 	# return to page
 	return redirect(url_for('user_settings'))
@@ -403,7 +403,7 @@ def getCSV(request):
 	
 		
 	if len(rows.as_dict()) == 0:
-		raise Exception('No History')
+		raise Exception('You have no history for the selected report')
 	
 	#write results to file
 	filename = request.form['data_type']+"_history.csv"
@@ -586,7 +586,7 @@ def dashboard():
     #in user_health
 	health = []
 	for i in user_health:
-		health.append(i.bmi)
+		health.append("{0:.2f}".format(i.bmi))
 
     #if the query result was empty, using "None as an identifier in html to
     #tell user that they have not provided health info
