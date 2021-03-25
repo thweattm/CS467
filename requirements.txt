@@ -21,7 +21,7 @@ openpyxl==2.4.11
 psycopg2==2.8.2
 pycparser==2.19
 pytz==2019.1
-PyYAML==5.1
+PyYAML==5.4
 records==0.5.3
 requests==2.22.0
 six==1.12.0
